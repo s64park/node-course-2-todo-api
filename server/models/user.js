@@ -54,6 +54,18 @@ UserSchema.methods.generateAuthToken = function() {
     });
 };
 
+//The $pull operator removes from an existing array all instances of a value or values that match a specified condition.
+UserSchema.methods.removeToken = function(token) {
+    var user = this;
+    return user.update({
+        $pull: {
+            tokens: {
+                token
+            }
+        }
+    })
+};
+
 UserSchema.statics.findByToken = function (token) {
     var User = this;
     var decoded;
